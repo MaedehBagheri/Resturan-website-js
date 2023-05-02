@@ -62,6 +62,7 @@ header{
         position: absolute;
         background-color: var(--color-white);
      right: 0;
+     
         width: 100%;
        top: -400px;
     }
@@ -87,6 +88,7 @@ border-radius: 5px;
     }
     .active{
         top: 16px;
+        height: 100%;
     }
 }
 /* end of header */
@@ -263,4 +265,62 @@ align-items: center;
 .cart-detail h3{
     font-size: 20px;
     font-weight: 500;
+}
+
+/* branches */
+
+.branches{
+    padding: 10px 5%;
+}
+.carts-branches{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4.5rem;
+    flex-wrap: wrap;
+}
+.branch-img img{
+    width: 320px;
+    height: 112px;
+}
+.cart-1{
+    border: 1px solid #cbcbcb;
+    border-radius: 5px;
+}
+
+.branch-detail{
+padding: 16px;
+text-align: center;
+}
+
+.branch-detail h4{
+    font-size: 16px;
+    font-weight: 700;
+    color: #353535;
+}
+.branch-address{
+    color: #adadad;
+}
+
+.branch-buttons{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+.btn{
+    border: none;
+    cursor: pointer;
+    width:136px;
+    height:24px;
+    border-radius: 4px;
+    background-color: #417f56;
+    color: #ffffff;
+}
+.map-btn{
+background-color: #ffffff;
+border: 1px solid #417f56;
+color: #417f56;
+}
+.branches-title{
+    margin-bottom: 5rem;
 }
