@@ -20,6 +20,19 @@ header{
 
     background-color:var(--color-white) ;
 }
+.hidden{
+    display: none;
+}
+.backdrop{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 10;
+    backdrop-filter: blur(3px);
+}
 .navbar{
     display: flex;
     justify-content: space-between;
@@ -403,7 +416,7 @@ border: none;
 border: 1px solid #717171;
 color: #ffffff;
 height: 112px;
-padding: 5px;
+padding: 15px;
 }
 .message-btn button{
     border: none;
@@ -414,10 +427,16 @@ padding: 5px;
 }
 .message-box span{
     color: #ffffff;
+    text-align: left;
 }
 .message-btn{
     display: flex;
   justify-content: left;
+
+}
+.message-btn button{
+    width: 10rem;
+    text-align: center;
 }
 @media screen and (max-width:968px){
     .message-footer{
@@ -440,7 +459,7 @@ padding: 5px;
 .cart_1{
     width: 288px;
     height: auto;
-    border: 1px solid #adadad;
+    border: 1px solid #cbcbcb;
     border-radius: 8px;
 }
 .iranian-food_img img{
@@ -470,4 +489,147 @@ padding: 5px;
 }
 .iranin-food_title{
     margin-bottom: 5rem;
+}
+
+/* cart-shopping */
+.cart-shopping h3{
+    font-family:"Estedad-Regular";
+    font-size: 13px;
+    font-weight: 500;
+}
+.cart-shopping{
+    direction: ltr;
+position: absolute;
+    width: 340px;
+    height: 473px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #cbcbcb;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    z-index: 20;
+   transform: translate(-50%,-50%);
+
+}
+.heading-cart{
+    width: 310px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+    border-bottom: 1px solid #717171;
+}
+.product-list{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-y:auto;
+    overflow-x: hidden;
+    height: 150px;
+}
+.color-li{
+    color: #f9f9f9;
+}
+.product-list li{
+    display: flex;
+    justify-content: space-between;
+    width: 306px;
+    align-items: center;
+    background-color: #ededed;
+    padding: 7px;
+    border-radius: 3px;
+}
+.product-list li p{
+    color: #adadad;
+    font-size: 11px;
+}
+.discount-cart,
+.delivery-price,
+.total-price{
+    display: flex;
+    justify-content: space-between;
+    width: 310px;
+    align-items: center;
+    border-bottom: 1px solid #adadad;
+    padding: 10px 0;
+}
+.btn-shopping{
+    width: 310px;
+}
+.login{
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #417f56;
+    color: #ffffff;
+    font-family:"Estedad-Regular";
+padding: 7px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.discount-cart span{
+    color: #717171;
+    font-size: 13px;
+
+}
+.delivery-price p{
+    color: #717171;
+    font-size: 13px;
+
+}
+.total-price p{
+    color: #717171;
+    font-size: 13px;
+    
+}
+.rate-food{
+    background: #e5f2e9;
+   width: 50px;
+   border-radius: 5px;
+   text-align: center;
+   align-items: center;
+   padding: 5px;
+}
+.rate-food img{
+    width: 17px;
+}
+.rate-food span{
+    font-size: 16px;
+}
+.hidden{
+    display:none;
+}
+.backdrop{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 10;
+    backdrop-filter: blur(3px);
+}
+.trash{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+.close-btn{
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #417f56;
+    border: none;
+
+}
+.close-btn img{
+    width: 20px;
+    height: 20px;
 }
