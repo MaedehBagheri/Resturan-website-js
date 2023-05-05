@@ -11,7 +11,7 @@ const clearCart =document.querySelector(".clear-cart");
 
 let sugCart =[];
 
-
+let buttonsSugDOM =[];
 
 class suggestionProduct{
     getSuggestionsProducts(){
@@ -61,9 +61,10 @@ product.forEach((element) => {
 });
 }
 getBtnsSug(){
-    const addToCartSug =document.querySelectorAll(".add-to-cart");
-    const btnsSug =[...addToCartSug];
-    btnsSug.forEach((btn)=>{
+    const addToCartSug =[...document.querySelectorAll(".add-to-cart")];
+   buttonsSugDOM=addToCartSug;
+   
+    addToCartSug.forEach((btn)=>{
         const id =btn.dataset.id;
         
 // there is in shopping cart
@@ -113,8 +114,8 @@ addCartSugItems(cartItem){
     divSug.innerHTML=`
     <li>
     <div class="rate-food">
-        <span data-id=${cartItem.id}><img src="./assets/images/trash.png" alt=""></span>
-        <span data-id=${cartItem.id} >+</span>
+        <span class="trash" ><img data-id=${cartItem.id}   src="./assets/images/trash.png" alt=""></span>
+        <span data-id=${cartItem.id}  class="pluse">+</span>
         <span>${cartItem.quantity}</span>
     </div>
     <div class="title-product">
@@ -124,7 +125,7 @@ addCartSugItems(cartItem){
     </div>
 </li>
     `
-    cartSugItem.appendChild(divSug)
+    cartSugItem.appendChild(divSug);
 }
 
 setAppSug(){
@@ -137,13 +138,13 @@ this.setCartSugValue(sugCart)
 
 cartClear(){
     clearCart.addEventListener("click",()=>{
-
         sugCart.forEach((cItem)=> this.removeItemSug(cItem.id));
 
         while(cartSugItem.children.length){
             cartSugItem.removeChild(cartSugItem.children[0]);
         }
         closeModal();
+        
     }
     
     );
@@ -152,9 +153,45 @@ cartClear(){
 removeItemSug(id){
    
     sugCart =sugCart.filter((item)=> item.id !== id);
+
+    this.setCartSugValue(sugCart);
+
+    Storage.saveCartSugProdects(sugCart);
+  
+
+const addButtons=buttonsSugDOM.find(btn => parseInt(btn.dataset.id) === parseInt(id));
+addButtons.innerText="افزودن به سبد خرید";
+    
+}
+
+cartLogic(){
+    cartSugItem.addEventListener("click",(e)=>{
+
+
+if(e.target.classList.contains("pluse")){
+    console.log(e.target.dataset.id);
+
+    const addQuantity=e.target;
+
+
+    const addedItem =sugCart.find((cItem)=> cItem.id == addQuantity.dataset.id);
+    addedItem.quantity++;
     this.setCartSugValue(sugCart);
     Storage.saveCartSugProdects(sugCart);
-    
+
+    addQuantity.nextElementSibling.innerText=addedItem.quantity;
+}
+else(e.target.classList.contains("trash"));
+
+const removeItem =e.target;
+
+const _removeItem =sugCart.find((c)=> c.id == removeItem.dataset.id);
+
+this.removeItemSug(_removeItem.id);
+Storage.saveCartSugProdects(sugCart);
+cartSugItem.removeChild(removeItem.parentElement.parentElement.parentElement.parentElement);
+
+    }) 
 }
 
 }
@@ -182,15 +219,14 @@ return _product.find((p) => p.id === parseInt(id));
 
 document.addEventListener("DOMContentLoaded",()=>{
 
-
     const sugProducts =new suggestionProduct();
     const productsData =sugProducts.getSuggestionsProducts();
-   console.log(productsData);
 const ui = new UI(productsData);
 ui.setAppSug()
 ui.displySugProducts(productsData);
 ui.getBtnsSug();
 ui.cartClear();
+ui.cartLogic();
 Storage.saveSugProdects(productsData);
 }
 );
@@ -215,8 +251,7 @@ cartShopping.classList.remove("hidden");
 close.addEventListener("click",closeModal);
 
 
-    function closeModal(e){
-        e.preventDefault();
+    function closeModal(){
         backDrop.classList.add("hidden");
         cartShopping.classList.add("hidden");
     }
