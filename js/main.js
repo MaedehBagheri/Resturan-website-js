@@ -1,16 +1,16 @@
 
 import "./menu.js";
-import "./modalcart.js";
 import "./slider.js";
 import { suggestionsData,popularFoodData } from "./productsData.js";
 const sugProductsDom =document.querySelector(".suggestions-carts");
 const productNumber=document.querySelector(".product-number");
 const cartTotal=document.querySelector(".cart-total");
+const cartSugItem=document.querySelector(".product-list");
+const clearCart =document.querySelector(".clear-cart");
+
 
 let sugCart =[];
 
-
-let allproductsSug=[];
 
 
 class suggestionProduct{
@@ -68,22 +68,29 @@ getBtnsSug(){
         
 // there is in shopping cart
 
-        const isInCartSug =sugCart.find((p)=> p.id === id);
+        const isInCartSug =sugCart.find((p)=> p.id === parseInt(id));
         if(isInCartSug){
-            btn.innerText ="موجود در سب خرید"
-        }
+            
+            btn.innerText ="موجود در سبد خرید";
+            btn.style.background="red";
+        };
 // there isn't in shopping cart
 
 
         btn.addEventListener("click",(event)=>{
-            console.log(event.target.dataset.id);
+          
 event.target.innerText="موجود در سبد خرید";
-const addedProduct= Storage.getProductsug(id);
-sugCart=[...sugCart,{...addedProduct,quantity:1}];
+
+const addedProduct= {...Storage.getProductsug(id),quantity:1}
+sugCart=[...sugCart,addedProduct];
+
+
 
 Storage.saveCartSugProdects(sugCart);
 
-this.setCartSugValue(sugCart)
+this.setCartSugValue(sugCart);
+
+this.addCartSugItems(addedProduct)
 
         })
     })
@@ -99,6 +106,57 @@ const totalPrice =cartValue.reduce((acc,curr)=>{
 cartTotal.innerText=`مبلغ قابل پرداخت : ${totalPrice}$`;
 productNumber.innerText =tempCartItems;
 }
+
+addCartSugItems(cartItem){
+    const divSug =document.createElement("div");
+    
+    divSug.innerHTML=`
+    <li>
+    <div class="rate-food">
+        <span data-id=${cartItem.id}><img src="./assets/images/trash.png" alt=""></span>
+        <span data-id=${cartItem.id} >+</span>
+        <span>${cartItem.quantity}</span>
+    </div>
+    <div class="title-product">
+
+        <h3>${cartItem.title}</h3>
+        <p>${cartItem.price}</p>
+    </div>
+</li>
+    `
+    cartSugItem.appendChild(divSug)
+}
+
+setAppSug(){
+  sugCart =Storage.getCartSug();
+// console.log(sugCart);
+   sugCart.forEach((cartItem)=> this.addCartSugItems(cartItem));
+this.setCartSugValue(sugCart)
+
+}
+
+cartClear(){
+    clearCart.addEventListener("click",()=>{
+
+        sugCart.forEach((cItem)=> this.removeItemSug(cItem.id));
+
+        while(cartSugItem.children.length){
+            cartSugItem.removeChild(cartSugItem.children[0]);
+        }
+        closeModal();
+    }
+    
+    );
+}
+
+removeItemSug(id){
+   
+    sugCart =sugCart.filter((item)=> item.id !== id);
+    this.setCartSugValue(sugCart);
+    Storage.saveCartSugProdects(sugCart);
+    
+}
+
 }
 
 
@@ -115,16 +173,50 @@ return _product.find((p) => p.id === parseInt(id));
     static saveCartSugProdects(cart){
         localStorage.setItem("sugCart",JSON.stringify(cart));
     }
+
+    static getCartSug(){
+        return JSON.parse(localStorage.getItem("sugCart")) ?
+        JSON.parse(localStorage.getItem("sugCart")) :[];
+    }
 }
 
 document.addEventListener("DOMContentLoaded",()=>{
+
+
     const sugProducts =new suggestionProduct();
     const productsData =sugProducts.getSuggestionsProducts();
    console.log(productsData);
 const ui = new UI(productsData);
+ui.setAppSug()
 ui.displySugProducts(productsData);
-ui.getBtnsSug()
+ui.getBtnsSug();
+ui.cartClear();
 Storage.saveSugProdects(productsData);
-
 }
 );
+
+
+
+
+
+// Modal-cart
+
+const showModal =document.querySelector("#show-modal");
+const cartShopping=document.querySelector(".cart-shopping");
+const backDrop =document.querySelector(".backdrop");
+const close =document.querySelector(".close-btn");
+showModal.addEventListener("click",(e)=>{
+e.preventDefault();
+backDrop.classList.remove("hidden");
+cartShopping.classList.remove("hidden");
+});
+
+
+close.addEventListener("click",closeModal);
+
+
+    function closeModal(e){
+        e.preventDefault();
+        backDrop.classList.add("hidden");
+        cartShopping.classList.add("hidden");
+    }

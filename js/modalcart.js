@@ -9,8 +9,11 @@ cartShopping.classList.remove("hidden");
 });
 
 
-close.addEventListener("click",(e)=>{
-    e.preventDefault();
-    backDrop.classList.add("hidden");
-    cartShopping.classList.add("hidden");
-    });
+close.addEventListener("click",closeModal);
+
+
+    function closeModal(e){
+        e.preventDefault();
+        backDrop.classList.add("hidden");
+        cartShopping.classList.add("hidden");
+    }
