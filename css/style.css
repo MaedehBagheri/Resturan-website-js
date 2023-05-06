@@ -171,6 +171,7 @@ flex-wrap: wrap;
 }
 .cart-img img{
     width: 280px;
+    height: 180px;
 }
 .cart-title{
 text-align: center;
@@ -258,7 +259,7 @@ margin-bottom: 9px;
 }
 .cart-item{
     width: 282px;
-    height: auto;
+    height: 310px;
     border: 1px solid #cbcbcb;
     border-radius: 8px;
 }
@@ -459,14 +460,14 @@ padding: 15px;
 }
 .cart_1{
     width: 277px;
-    height: auto;
+    height: 240px;
     border: 1px solid #cbcbcb;
     border-radius: 8px;
 }
 .iranian-food_img img{
     background-size: cover;
     width: 100%;
-    height: auto;
+    height: 138px;
 }
 .iranian-card{
     padding:14px 16px;

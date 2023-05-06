@@ -7,47 +7,21 @@ export const suggestionsData=[
     },
     {
         id:2,
-        title:"غذای گیاهی",
+        title:"استیک",
         price:12000,
- imgurl:"./assets/images/images.jpg",
+ imgurl:"./assets/images/sh.jpg",
     },
     {
         id:3,
-        title:"غذای گیاهی",
+        title:"پیتزا",
         price:12000,
- imgurl:"./assets/images/images.jpg",
+ imgurl:"./assets/images/poster_5a0dc2c6-bc94-40a7-b6a5-2e423e932f35.jpeg",
     },
     {
         id:4,
-        title:"غذای گیاهی",
+        title:"همبرگر",
         price:12000,
- imgurl:"./assets/images/images.jpg",
+ imgurl:"./assets/images/beautiful-burger-dark-background-Top.jpg",
     }
 ];
 
-export const popularFoodData=[
-    {
-        id:1,
-        title:"پاستا",
-        price:13.000,
-img:"./assets/images/510.jpg" 
-    },
-    {
-        id:2,
-        title:"پاستا",
-        price:13.000,
-img:"./assets/images/510.jpg" 
-    },
-    {
-        id:3,
-        title:"پاستا",
-        price:13.000,
-img:"./assets/images/510.jpg" 
-    },
-    {
-        id:4,
-        title:"پاستا",
-        price:13.000,
-img:"./assets/images/510.jpg" 
-    }
-]
