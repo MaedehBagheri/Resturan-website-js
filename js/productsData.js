@@ -30,24 +30,24 @@ export const popularFoodData=[
         id:1,
         title:"پاستا",
         price:13.000,
-img:"./assets/images/Frame 744.png" 
+img:"./assets/images/510.jpg" 
     },
     {
         id:2,
         title:"پاستا",
         price:13.000,
-img:"./assets/images/Frame 744.png" 
+img:"./assets/images/510.jpg" 
     },
     {
         id:3,
         title:"پاستا",
         price:13.000,
-img:"./assets/images/Frame 744.png" 
+img:"./assets/images/510.jpg" 
     },
     {
         id:4,
         title:"پاستا",
         price:13.000,
-img:"./assets/images/Frame 744.png" 
+img:"./assets/images/510.jpg" 
     }
 ]

@@ -7,8 +7,8 @@ const productNumber=document.querySelector(".product-number");
 const cartTotal=document.querySelector(".cart-total");
 const cartSugItem=document.querySelector(".product-list");
 const clearCart =document.querySelector(".clear-cart");
-
-
+const popularCartsDOM =document.querySelector(".popular-carts");
+// suggestion-product
 let sugCart =[];
 
 let buttonsSugDOM =[];
@@ -94,7 +94,7 @@ this.setCartSugValue(sugCart);
 this.addCartSugItems(addedProduct)
 
         })
-    })
+})
 }
 
 setCartSugValue(cartValue){
@@ -115,7 +115,9 @@ addCartSugItems(cartItem){
     <li>
     <div class="rate-food">
         <span class="trash" ><img data-id=${cartItem.id}   src="./assets/images/trash.png" alt=""></span>
+        <div>
         <span data-id=${cartItem.id}  class="pluse">+</span>
+        </div>
         <span>${cartItem.quantity}</span>
     </div>
     <div class="title-product">
@@ -174,7 +176,7 @@ if(e.target.classList.contains("pluse")){
     const addQuantity=e.target;
 
 
-    const addedItem =sugCart.find((cItem)=> cItem.id == addQuantity.dataset.id);
+    const addedItem =sugCart.find((cItem)=> parseInt(cItem.id) === parseInt(addQuantity.dataset.id));
     addedItem.quantity++;
     this.setCartSugValue(sugCart);
     Storage.saveCartSugProdects(sugCart);
@@ -217,8 +219,109 @@ return _product.find((p) => p.id === parseInt(id));
     }
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
 
+// popular-product
+let popCart =[] ;
+
+class popularProducts{
+    getPopularProduct(){
+        return popularFoodData;
+    }
+    }
+    
+
+class uiPopular{
+
+    displayPopularProduct(product){
+let result="";
+product.forEach((item)=>{
+    result+=`
+    <div class="cart-item">
+    <div class="cart-img">
+        <img src=${item.img} alt="">
+    </div>
+    <div class="cart-detail">
+        <div class="heading">
+            <div class="heading-title">
+               <h3>${item.title}</h3>
+                <div class="heart">
+
+                    <img src="./assets/images/heart22.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="prices-2">
+<div>
+<img src="./assets/images/Star rate.png" alt="">
+<img src="./assets/images/Star rate.png" alt="">
+<img src="./assets/images/Star rate.png" alt="">
+<img src="./assets/images/Star rate.png" alt="">
+</div>
+            <div><h3>${item.price}</h3></div>
+                
+        </div>
+        <div class="shop-btn">
+            <button data-id=${item.id} class="add-btn">افزودن به سبد خرید</button>
+        </div>
+    </div>
+</div>
+
+    `
+    popularCartsDOM.innerHTML=result;
+})
+    }
+
+    getBtnPopular(){
+const popBtnAdd =document.querySelectorAll(".add-btn");
+
+popBtnAdd.forEach((btn)=>{
+    const popId =btn.dataset.id;
+
+
+
+    const isInCartPop =popCart.find((p)=> p.id === parseInt(id));
+    if(isInCartPop){
+        
+        btn.innerText ="موجود در سبد خرید";
+        btn.style.background="red";
+    };
+  
+    btn.addEventListener("click",(e)=>{
+        e.preventDefault();
+e.target.innerText ="موجود در سبد خرید";
+
+const addedPopCart ={...StoragePopular.getPopProduct(popId),quantity:1};
+popCart=[...popCart,addedPopCart];
+StoragePopular.saveProduct(popCart);
+    })
+})
+
+
+
+}
+}
+
+
+
+
+
+
+class StoragePopular{
+    static  saveProduct(product){
+ localStorage.setItem("popular", JSON.stringify(product));
+    }
+
+    static getPopProduct(id){
+       const _product=JSON.parse(localStorage.getItem("popular"));
+       return _product.find((p)=> p.id ===parseInt(id));
+    }
+}
+
+
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+// suggestion-Product
     const sugProducts =new suggestionProduct();
     const productsData =sugProducts.getSuggestionsProducts();
 const ui = new UI(productsData);
@@ -228,6 +331,15 @@ ui.getBtnsSug();
 ui.cartClear();
 ui.cartLogic();
 Storage.saveSugProdects(productsData);
+// popular-Product
+const popularProduct = new popularProducts();
+const popularData =popularProduct.getPopularProduct();
+console.log(popularData);
+
+const uiPopularCarts =new uiPopular();
+uiPopularCarts.displayPopularProduct(popularFoodData);
+uiPopularCarts.getBtnPopular();
+StoragePopular.saveProduct(popularFoodData);
 }
 );
 
